@@ -3,7 +3,8 @@
 const dotenv = require("dotenv");
 const mongoose = require("mongoose")
 const express = require('express');
-
+const cors = require("cors");
+const body_parser = require("body-parser");
 
 dotenv.config();
 
@@ -16,7 +17,7 @@ const mongo_db = process.env.MONGO_DB;
 
 mongoose.connect(`mongodb://${mongo_user}:${mongo_pass}@${mongo_host}:${mongo_port}/${mongo_db}`, {
     useNewUrlParser: true,
-    useUnifiedTopology: true,
+    useUnifiedTopology: false,
     keepAlive: true
   })
   .then(() => {
@@ -31,6 +32,9 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
+const loginAPI = require("./src/views/login");
+const messageAPI = require("./src/views/message");
+const userAPI = require("./src/views/users");
 
 app.use(
     cors({
@@ -41,6 +45,13 @@ app.use(
       optionsSuccessStatus: 200
     })
 );
+
+app.use(body_parser.json());
+app.use(body_parser.urlencoded({extended: false}));
+app.use('/auth', loginAPI);
+app.use('/user', userAPI);
+app.use('/message', messageAPI);
+
 
 
 server.listen(port, function(){

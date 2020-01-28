@@ -4,9 +4,9 @@
 var express = require("express");
 var userController = require("../controllers/user");
 
-const userRoutes = express.Router();
+const loginRoutes = express.Router();
 
-userRoutes.post('/login', function(req, res){
+loginRoutes.post('/login', function(req, res){
     const user_nickname = req.params.nickname;
     try {
         if(userController.validate_user(user_nickname)){
@@ -18,3 +18,5 @@ userRoutes.post('/login', function(req, res){
         res.status(500).send({"error": JSON.stringify(error)});
     }
 });
+
+module.exports = loginRoutes;

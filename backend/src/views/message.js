@@ -4,19 +4,26 @@
 var express = require("express");
 var messageController = require("../controllers/message");
 
-const userRoutes = express.Router();
+const messageRoute = express.Router();
 
-userRoutes.post('/message', function(req, res){
-    const user = req.params.user;
-    const mss = req.params.message;
-
+messageRoute.post('', async function(req, res){    
     try {
-        if(messageController.post_message(user, mss)){
-            res.status(200).send({"result": "Mensaje creado"});
-        }else{
-            res.status(400).send({"result": "Error interno al postear el mensaje"});
-        }        
-    } catch (error) {
-        res.status(500).send({"error": JSON.stringify(error)});
+        const user = req.body.user;
+        const mss = req.body.message;
+        messageController.post_message(user, mss).then((result) => {
+            if(result){
+                res.status(200).send({"result": "Mensaje creado"});
+            }else{
+                res.status(500).send({"result": "Error interno al postear el mensaje"});
+            }
+        }).catch(err => {
+            res.status(500).send({"error": JSON.stringify(err)});
+        });
+    } catch (err) {
+        res.status(500).send({"error": JSON.stringify(err)});
     }
 });
+
+
+
+module.exports = messageRoute;
