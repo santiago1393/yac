@@ -24,6 +24,40 @@ messageRoute.post('', async function(req, res){
     }
 });
 
+messageRoute.get('/all', async function(req, res){
+    try {
+        messageController.get_messages().then((result) => {
+            if(result){
+                res.status(200).send(result);
+            } else {
+                res.status(500).send({"result": "Error interno al obtener los mensajes"});
+            }
+        }).catch( err => {
+            res.status(500).send({"error": JSON.stringify(err)})
+        });
+    } catch (err) {
+        res.status(500).send({"error": JSON.stringify(err)})
+    }
+
+});
+
+messageRoute.get('/last', async function(req, res){
+    try{
+        messageController.get_last_message().then((result) => {
+            console.log(result);            
+            if(result){
+                res.status(200).send(result);
+            } else {
+                res.status(500).send({"result": "Error al recuperar los datos"});
+            }
+        }).catch( err => {
+            res.status(500).send({"error": JSON.stringify(err)});
+        })
+    } catch ( err) {
+        res.status(500).send({"error": JSON.stringify(err)});
+    }
+});
+
 
 
 module.exports = messageRoute;
