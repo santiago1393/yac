@@ -59,8 +59,17 @@ server.listen(port, function(){
 });
 
 io.on('connection', function(socket){
+    
     console.log('New client');
-    socket.emit('messages', messages); 
+    
+    socket.on("USER_ADDED", data => {
+      socket.broadcast.emit("NEW_USER", data);
+    });
+
+    socket.on("MESSAGE_SENDED", data => {
+      io.emit("NEW_MESSAGE", data);
+    });
 });
+
 
 

@@ -3,7 +3,7 @@ const messageModel = require("../models/message");
 
 async function get_messages(){
     return new Promise((resolve, reject) => {
-        messageModel.find({}, (err, res) => {
+        messageModel.find({}, {}, { sort: {'date': -1}}, (err, res) => {
             if( res ){
                 resolve(res);
             } else if ( err) {
