@@ -8,7 +8,7 @@ const initialStateChat = {
     message_sended: false,
 };
 
-export default function chatReducer(state = initialStateChat, action) {
+export default function chatReducer(state = initialStateChat, action:any) {
     switch (action.type) {
         case types.LOAD_MESSAGE_FAIL:
             return Object.assign({}, state, {

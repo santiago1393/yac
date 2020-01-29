@@ -11,8 +11,8 @@ export default function configureStore(preloadedState) {
     const enhancers = [middlewareEnhancer, monitorReducersEnhancer]
     const composedEnhancers = compose(...enhancers)
     const store = createStore(rootReducer, preloadedState, composedEnhancers)
-    if (process.env.NODE_ENV !== 'production' && module.hot) {
+    /*if (process.env.NODE_ENV !== 'production' && module.hot) {
       module.hot.accept('../redux-reducer/reducers', () => store.replaceReducer(rootReducer))
-    }
+    }*/
     return store
   }
