@@ -17,7 +17,7 @@ async function get_messages(){
 
 async function get_last_message(){
     return new Promise((resolve, reject) => {
-        messageModel.findOne({}, {}, { sort: {'date': -1}}, (err, res) => {
+        messageModel.findOne({}, {}, { sort: {'date': 1}}, (err, res) => {
             if( err){
                 reject(err);;
             } else if(res){
