@@ -20,8 +20,12 @@ export function new_message_received(mss:any){
 
 export function loadMessages(){
     return function(dispatch:any){        
-        return backend.get_messages().then(data => {
-            dispatch(load_messages_success(data));
+        return backend.get_messages().then(result => {
+            if(result.status === 200){
+                dispatch(load_messages_success(result.data));
+            }else{
+                dispatch(load_messages_fail());
+            }
         }).catch(error => {
             console.log(error);
             dispatch(load_messages_fail());

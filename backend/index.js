@@ -5,6 +5,7 @@ const mongoose = require("mongoose")
 const express = require('express');
 const cors = require("cors");
 const body_parser = require("body-parser");
+const mss_controller = require("./src/controllers/message");
 
 dotenv.config();
 
@@ -67,7 +68,13 @@ io.on('connection', function(socket){
     });
 
     socket.on("MESSAGE_SENDED", data => {
-      io.emit("NEW_MESSAGE", data);
+      mss_controller.post_message(data.user, data.msessage_text).then((result) => {
+        if(result){
+          io.emit("NEW_MESSAGE", data);
+        }
+      }).catch(err => {
+        console.log(err);        
+      });
     });
 });
 

@@ -12,10 +12,10 @@ export class backend{
     }
     
     static async create_user(data:any){
-        return axios.post(`${api_url}/user`, data);
+        return axios.post(`${api_url}/user`, {"nickname": data});
     }
     
     static async validate_user(data:any){
-        return axios.post(`${api_url}/auth`, data);
+        return axios.post(`${api_url}/auth`, {"nickname": data});
     }
 };
