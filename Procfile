@@ -1,2 +1,2 @@
-backend node /backend/index.js
-frontend npm start
+web: node /backend/index.js
+web: npm start
