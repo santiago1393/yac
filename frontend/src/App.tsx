@@ -186,7 +186,9 @@ class App extends Component<props, state>{
               ) : (
                 <List component="nav" aria-label="mensajes">
                   {
-                  this.props.messages.map((val, index) => {
+                  this.props.messages.sort((a, b) => {
+                    return (a.date > b.date) ?  1 : -1;
+                  }).map((val, index) => {
                     if(val !== null){
                       const date = new Date(val.date).toLocaleString();
                       if(val.message.startsWith('/youtube ') === true){
