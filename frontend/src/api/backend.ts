@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const api_url = "http://localhost:8090";
+const api_url = "https://melt-chat-backend.herokuapp.com";
 
 export class backend{
     static async get_messages(){
