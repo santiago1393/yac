@@ -68,7 +68,7 @@ io.on('connection', function(socket){
     });
 
     socket.on("MESSAGE_SENDED", data => {
-      mss_controller.post_message(data.user, data.msessage_text).then((result) => {
+      mss_controller.post_message(data.user, data.message_text).then((result) => {
         if(result){
           io.emit("NEW_MESSAGE", data);
         }
