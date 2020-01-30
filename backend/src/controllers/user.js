@@ -39,6 +39,20 @@ async function validate_user(nickname){
     });
 }
 
+async function set_user_socket(nickname, socket_id){
+    return new Promise((resolve, reject) => {
+        userModel.updateOne({nickname: nickname}, {socket: socket_id}, (err, res) => {
+            if( res){
+                resolve(true);
+            } else if ( err ){
+                reject(err);
+            } else {
+                resolve(false);
+            }
+        });
+    });
+}
+
 module.exports = {
-    validate_user, createUser
+    validate_user, createUser, set_user_socket
 };

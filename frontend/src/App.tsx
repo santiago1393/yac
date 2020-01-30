@@ -187,18 +187,21 @@ class App extends Component<props, state>{
                 <List component="nav" aria-label="mensajes">
                   {
                   this.props.messages.sort((a, b) => {
-                    return (a.date > b.date) ?  1 : -1;
+                    return (a.date < b.date) ?  1 : -1;
                   }).map((val, index) => {
                     if(val !== null){
                       const date = new Date(val.date).toLocaleString();
                       if(val.message.startsWith('/youtube ') === true){
                         const search = val.message.slice(10);                                                
                         return(
-                          <EmbedVideo video={search}/>
+                          <ListItem divider key={index}>
+                            <ListItemText primary={val.message} secondary={`${val.user} at: ${date}`}/>
+                            <EmbedVideo video={search}/>
+                          </ListItem>
                         );
                       }else{
                         return(
-                          <ListItem key={index}>
+                          <ListItem divider key={index}>
                             <ListItemText primary={val.message} secondary={`${val.user} at: ${date}`}/>
                           </ListItem>
                         );
